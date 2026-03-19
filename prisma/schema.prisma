@@ -1,0 +1,48 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Get a free hosted Postgres database in seconds: `npx create-db`
+
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model Entry {
+  id        String   @id @default(cuid())
+  title     String
+  author    String?
+  url       String?
+  category  Category
+  status    Status
+  rating    Int?
+  coverUrl  String?
+  notes     String?
+  tags      Tag[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Tag {
+  id      String  @id @default(cuid())
+  name    String  @unique
+  entries Entry[]
+}
+
+enum Category {
+  FANFIC
+  NOVEL
+  BOOKMARK
+  OTHER
+}
+
+enum Status {
+  READING
+  COMPLETED
+  DROPPED
+  PLAN_TO_READ
+}
