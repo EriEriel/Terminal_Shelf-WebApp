@@ -13,14 +13,14 @@ datasource db {
 }
 
 model Entry {
-  id        String   @id @default(cuid())
+  id        String   @id @unique @default(cuid())
   title     String
   author    String?
   url       String?
   category  Category
   status    Status
   rating    Int?
-  coverUrl  String?
+  coverUrl  String
   notes     String?
   tags      Tag[]
   createdAt DateTime @default(now())

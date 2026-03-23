@@ -1,0 +1,92 @@
+"use server";
+
+import { prisma } from "@/lib/db";
+import { redirect } from "next/navigation";
+import { Category, Status } from "@/generated/prisma/enums";
+
+export async function addEntry(formData: FormData) {
+  const title = formData.get("title") as string;
+  const coverUrl = formData.get("coverUrl") as string;
+  const author = formData.get("author") as string;
+  const category = formData.get("category") as Category;
+  const status = formData.get("status") as Status;
+  const url = formData.get("url") as string;
+  const notes = formData.get("notes") as string;
+  const tagsInput = formData.get("tags") as string;
+  // Tenery, if tagsInput is Empty than return [] empty array, if not split string with , into array 
+  // then delete whitespace t.trim() 
+  // than removes any empty strings — handles edge cases like trailing commas filter(Boolean) 
+  const tagNames = tagsInput ? tagsInput.split(",").map(t => t.trim()).filter(Boolean) : [];
+
+  await prisma.entry.create({
+    data: {
+      title,
+      coverUrl: coverUrl || null,
+      author: author || null,
+      category: category || "OTHER",
+      status: status || "READING",
+      url: url || null,
+      notes: notes || null,
+      // many to many relationship, it iterate over tagNames and than if exist connect to tag table, if not create the tag 
+      tags: {
+        connectOrCreate: tagNames.map(name => ({
+          where: { name },
+          create: { name },
+        }))
+      },
+    }
+  });
+
+  redirect("/");
+}
+
+// PATCH method
+export async function updateEntry(formData: FormData) {
+  const id = formData.get("id") as string;
+  const title = formData.get("title") as string;
+  const coverUrl = formData.get("coverUrl") as string;
+  const author = formData.get("author") as string;
+  const category = formData.get("category") as Category;
+  const status = formData.get("status") as Status;
+  const url = formData.get("url") as string;
+  const notes = formData.get("notes") as string;
+  const tagsInput = formData.get("tags") as string;
+  const tagNames = tagsInput ? tagsInput.split(",").map(t => t.trim()).filter(Boolean) : [];
+
+  await prisma.entry.update({
+    where: { id },
+    data: {
+      title,
+      coverUrl: coverUrl || null,
+      ...(author && { author }),
+      ...(url && { url }),
+      ...(category && { category }),
+      ...(status && { status }),
+      ...(notes && { notes }),
+      tags: {
+        // Wiped connection with set: [] and than reconnect with existing tags 
+        set: [],
+        connectOrCreate: tagNames.map(name => ({
+          where: { name },
+          create: { name },
+        }))
+      }
+    }
+  });
+
+  redirect("/");
+}
+
+// DELETE method 
+export async function deleteEntry(formData: FormData) {
+  const id = formData.get("id") as string;
+
+  await prisma.entry.delete({
+    where: { id },
+  });
+
+  redirect("/");
+}
+
+// GET method 
+
