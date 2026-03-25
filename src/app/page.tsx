@@ -18,7 +18,7 @@ async function getEntries(search: string = "") {
 }
 
 export default async function Home({ searchParams }: { searchParams: Promise<{ search?: string }> }) {
-  // deconstructing and default value, 
+  // deconstructing and default value,
   // if search is empty return empty string("") instead of undefined
   const { search = "" } = await searchParams
   const entries = await getEntries(search);
