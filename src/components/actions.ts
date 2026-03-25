@@ -1,6 +1,6 @@
 "use server";
 
-import { prisma } from "@/lib/db";
+import { prisma } from "@/lib/prisma";
 import { redirect } from "next/navigation";
 import { Category, Status } from "@/generated/prisma/enums";
 

@@ -1,4 +1,4 @@
-import { prisma } from "@/lib/db";
+import { prisma } from "@/lib/prisma";
 import AddEntryModal from "@/components/AddEntryModal";
 import EntryCard from "@/components/EntryCard";
 import { SearchBar } from "@/components/SearchBar";
