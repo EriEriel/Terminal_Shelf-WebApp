@@ -2,6 +2,7 @@ import { prisma } from "@/lib/prisma";
 import AddEntryModal from "@/components/AddEntryModal";
 import EntryCard from "@/components/EntryCard";
 import { SearchBar } from "@/components/SearchBar";
+import LoginModal from "@/components/LoginModal";
 
 async function getEntries(search: string = "") {
   return await prisma.entry.findMany({
@@ -34,13 +35,14 @@ export default async function Home({ searchParams }: { searchParams: Promise<{ s
         <div className="flex gap-4 items-center">
           <SearchBar />
           <AddEntryModal />
+          <LoginModal />
         </div>
       </div>
 
       <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
         {entries.length === 0 ? (
           <div className="col-span-full py-20 text-center border-2 border-dashed rounded-lg">
-            <p className="text-muted-foreground">Your shelf is empty. Start adding some fics!</p>
+            <p className="text-muted-foreground">Your shelf is empty.</p>
           </div>
         ) : (
           entries.map((entry) => (
