@@ -1,10 +1,13 @@
 "use server";
-
 import { prisma } from "@/lib/prisma";
 import { redirect } from "next/navigation";
 import { Category, Status } from "@/generated/prisma/enums";
+import { auth } from "@/auth";
 
 export async function addEntry(formData: FormData) {
+  const session = await auth()
+  if (!session?.user?.id) redirect("/login")
+
   const title = formData.get("title") as string;
   const coverUrl = formData.get("coverUrl") as string;
   const author = formData.get("author") as string;
@@ -13,9 +16,7 @@ export async function addEntry(formData: FormData) {
   const url = formData.get("url") as string;
   const notes = formData.get("notes") as string;
   const tagsInput = formData.get("tags") as string;
-  // Tenery, if tagsInput is Empty than return [] empty array, if not split string with , into array 
-  // then delete whitespace t.trim() 
-  // than removes any empty strings — handles edge cases like trailing commas filter(Boolean) 
+
   const tagNames = tagsInput ? tagsInput.split(",").map(t => t.trim()).filter(Boolean) : [];
 
   await prisma.entry.create({
@@ -27,7 +28,7 @@ export async function addEntry(formData: FormData) {
       status: status || "READING",
       url: url || null,
       notes: notes || null,
-      // many to many relationship, it iterate over tagNames and than if exist connect to tag table, if not create the tag 
+      userId: session.user.id,  // ← from session, not form
       tags: {
         connectOrCreate: tagNames.map(name => ({
           where: { name },

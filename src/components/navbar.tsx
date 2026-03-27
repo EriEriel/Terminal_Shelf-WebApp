@@ -17,8 +17,8 @@ export default function Navbar() {
         </div>
 
         <div className="flex gap-4 items-center">
-          <SearchBar />
-          <AddEntryModal />
+          {session && <SearchBar />}
+          {session && <AddEntryModal />}
           <LoginModal />
         </div>
       </div>
