@@ -5,6 +5,7 @@ import { Category, Status } from "@/generated/prisma/enums";
 import { auth } from "@/auth";
 
 export async function addEntry(formData: FormData) {
+
   const session = await auth()
   if (!session?.user?.id) redirect("/login")
 

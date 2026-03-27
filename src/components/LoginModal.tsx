@@ -51,7 +51,7 @@ export default function LoginModal() {
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
         <Button variant="outline" className="cursor-pointer text-black text-xl p-6 hover:shadow-md transition-shadow">
-          LogIn
+          SignIn
         </Button>
       </DialogTrigger>
       <DialogContent>

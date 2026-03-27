@@ -4,6 +4,68 @@
 
 @custom-variant dark (&:is(.dark *));
 
+@theme {
+  /* --- CUSTOM COLORS --- */
+  --color-surface-container-low: #1a1b1e;
+  --color-surface-tint: #c6c6c7;
+  --color-on-primary-container: #000000;
+  --color-surface: #121316;
+  --color-on-primary-fixed-variant: #e2e2e2;
+  --color-primary-fixed-dim: #454747;
+  --color-secondary-container: #45464e;
+  --color-tertiary-container: #919098;
+  --color-tertiary-fixed-dim: #46464d;
+  --color-on-error-container: #ffdad6;
+  --color-surface-bright: #38393c;
+  --color-outline: #919191;
+  --color-surface-container-highest: #343538;
+  --color-tertiary-fixed: #5e5e65;
+  --color-background: #121316;
+  --color-primary-fixed: #5d5f5f;
+  --color-secondary-fixed: #c6c6cf;
+  --color-secondary: #c6c6cf;
+  --color-on-surface-variant: #c6c6c6;
+  --color-error-container: #93000a;
+  --color-on-primary: #1a1c1c;
+  --color-primary: #ffffff;
+  --color-outline-variant: #474747;
+  --color-primary-container: #d4d4d4;
+  --color-tertiary: #e3e1ea;
+  --color-on-secondary: #1a1b22;
+  --color-surface-dim: #121316;
+  --color-surface-container-high: #292a2d;
+  --color-on-surface: #e3e2e6;
+  --color-error: #ffb4ab;
+  --color-on-error: #690005;
+  --color-on-background: #e3e2e6;
+  --color-on-tertiary-container: #000000;
+  --color-on-secondary-container: #e2e1eb;
+  --color-inverse-primary: #5d5f5f;
+  --color-on-tertiary-fixed-variant: #e3e1ea;
+  --color-secondary-fixed-dim: #aaaab3;
+  --color-on-tertiary-fixed: #ffffff;
+  --color-inverse-surface: #e3e2e6;
+  --color-on-tertiary: #1b1b21;
+  --color-on-secondary-fixed-variant: #3a3b42;
+  --color-inverse-on-surface: #2f3033;
+  --color-on-secondary-fixed: #1a1b22;
+  --color-surface-container-lowest: #0d0e11;
+  --color-surface-container: #1f1f23;
+  --color-on-primary-fixed: #ffffff;
+  --color-surface-variant: #343538;
+
+  /* --- TYPOGRAPHY --- */
+  --font-headline: "Space Grotesk", sans-serif;
+  --font-body: "Space Grotesk", sans-serif;
+  --font-label: "Space Grotesk", sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, monospace;
+
+  /* --- BORDER RADIUS (Terminal Style) --- */
+  --radius-default: 0px;
+  --radius-lg: 0px;
+  --radius-xl: 0px;
+}
+
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
@@ -120,10 +182,38 @@
   * {
     @apply border-border outline-ring/50;
   }
+
   body {
     @apply bg-background text-foreground;
   }
+
   html {
     @apply font-mono;
+  }
+}
+
+/* Custom CSS utilities (Blinking Cursor, etc) */
+@layer utilities {
+  .terminal-cursor::after {
+    content: "";
+    display: inline-block;
+    width: 2px;
+    height: 1.2em;
+    background-color: currentColor;
+    margin-left: 4px;
+    vertical-align: middle;
+    animation: blink 1s step-end infinite;
+  }
+
+  @keyframes blink {
+
+    from,
+    to {
+      opacity: 1;
+    }
+
+    50% {
+      opacity: 0;
+    }
   }
 }
