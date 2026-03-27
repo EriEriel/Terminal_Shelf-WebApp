@@ -43,6 +43,7 @@ export default function EditEntryModal({ entry }: { entry: EntryWithTags }) {
               name="coverUrl"
               className="border border-gray-300 rounded p-1 w-full"
               defaultValue={entry.coverUrl ?? ""}
+              placeholder="Optional"
             />
           </div>
 
@@ -61,6 +62,7 @@ export default function EditEntryModal({ entry }: { entry: EntryWithTags }) {
               name="author"
               className="border border-grey-300 rounded p-1 w-full"
               defaultValue={entry.author ?? ""}
+              placeholder="Optional"
             />
           </div>
 
@@ -70,15 +72,19 @@ export default function EditEntryModal({ entry }: { entry: EntryWithTags }) {
               name="url"
               className="border border-grey-300 rounded p-1 w-full"
               defaultValue={entry.url ?? ""}
+              placeholder="Optional"
             />
           </div>
 
           <div>
             <Label htmlFor="notes">Notes</Label>
-            <input id="notes"
+            <textarea
+              id="notes"
               name="notes"
-              className="border border-grey-300 rounded p-1 w-full"
+              className="border border-gray-300 rounded p-3 w-full resize-none"
               defaultValue={entry.notes ?? ""}
+              placeholder="Optional"
+              rows={4}
             />
           </div>
 
