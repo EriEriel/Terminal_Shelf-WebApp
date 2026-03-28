@@ -30,7 +30,7 @@ export default function LoginPage() {
   }
 
   return (
-    <div className="min-h-[70vh] bg-[#F7F6F3] flex items-center justify-center px-4 mt-20">
+    <div className="min-h-[50vh] bg-[#F7F6F3] flex items-center justify-center px-4 mt-5">
       <div className="w-full max-w-sm">
 
         {/* Header */}
@@ -45,10 +45,9 @@ export default function LoginPage() {
             </svg>
           </div>
           <h1
-            className="text-2xl font-semibold text-[#1a1a1a] tracking-tight"
-            style={{ fontFamily: "'Georgia', serif" }}
+            className="text-2xl font-mono font-semibold text-[#1a1a1a] tracking-tight text-bold"
           >
-            Virtual Library
+            Terminal_Shelf
           </h1>
           <p className="text-sm text-[#888] mt-1 tracking-wide">
             Sign in to your collection

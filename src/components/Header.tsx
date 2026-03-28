@@ -4,15 +4,15 @@ import LoginModal from "./LoginModal";
 
 export default function Header() {
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 flex h-16 w-full items-center justify-between border-none bg-stone-950 px-8">
+    <header className="fixed top-0 left-0 right-0 z-50 flex h-16 w-full items-center border-none bg-stone-950 px-8">
 
       {/* Logo Section */}
-      <div className="font-mono text-xl font-black tracking-widest text-white">
+      <div className="font-mono flex-1 text-xl font-black tracking-widest text-white">
         TERMINAL_SHELF
       </div>
 
       {/* Navigation - Uses your new --font-headline alias */}
-      <nav className="hidden items-center gap-8 md:flex">
+      <nav className="hidden flext-1 items-center gap-8 md:flex">
         <a
           href="#"
           className="font-headline tracking-tighter uppercase font-bold text-sm text-stone-400 dark:text-stone-600 dark:hover:text-black hover:text-white transition-colors duration-150"
@@ -33,7 +33,7 @@ export default function Header() {
         </a>
       </nav>
 
-      <div className="flex items-center gap-6">
+      <div className="flex-1 flex items-center justify-end gap-6">
 
         <LoginModal />
 
