@@ -58,7 +58,7 @@ export default function LoginModal() {
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
         {/* Login Icon (Clean SVG) */}
-        <button className="text-on-surface hover:text-white transition-colors cursor-pointer focus:outline-none">
+        <button className="text-gray-50 hover:text-white transition-colors cursor-pointer focus:outline-none">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"

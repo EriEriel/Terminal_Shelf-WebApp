@@ -4,10 +4,10 @@ import LoginModal from "./LoginModal";
 
 export default function Header() {
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 flex h-16 w-full items-center justify-between border-none bg-surface px-8 dark:bg-background">
+    <header className="fixed top-0 left-0 right-0 z-50 flex h-16 w-full items-center justify-between border-none bg-stone-950 px-8">
 
       {/* Logo Section */}
-      <div className="font-mono text-xl font-black tracking-widest text-on-surface">
+      <div className="font-mono text-xl font-black tracking-widest text-white">
         TERMINAL_SHELF
       </div>
 
@@ -38,7 +38,7 @@ export default function Header() {
         <LoginModal />
 
         {/* Terminal Icon (Clean SVG) */}
-        <button className="text-on-surface hover:text-white transition-colors cursor-pointer focus:outline-none">
+        <button className="text-gray-50 hover:text-white transition-colors cursor-pointer focus:outline-none">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
@@ -52,7 +52,7 @@ export default function Header() {
         </button>
 
         {/* Settings Icon (Clean SVG) */}
-        <button className="text-on-surface hover:text-white transition-colors cursor-pointer focus:outline-none">
+        <button className="text-gray-50 hover:text-white transition-colors cursor-pointer focus:outline-none">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
