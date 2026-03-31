@@ -1,8 +1,10 @@
 "use server";
+
 import { prisma } from "@/lib/prisma";
 import { redirect } from "next/navigation";
 import { Category, Status } from "@/generated/prisma/enums";
 import { auth } from "@/auth";
+import { revalidatePath } from "next/cache";
 
 export async function addEntry(formData: FormData) {
 
@@ -90,5 +92,11 @@ export async function deleteEntry(formData: FormData) {
   redirect("/");
 }
 
-// GET method 
-
+// Curated Method
+export async function toggleCurated(id: string, value: boolean) {
+  await prisma.entry.update({
+    where: { id },
+    data: { isCurated: value }
+  })
+  revalidatePath("/archive")
+}

@@ -1,8 +1,11 @@
 "use client";
 
 import { Entry, Tag } from "@/generated/prisma/client";
-import { ExternalLink, Pencil } from "lucide-react"
+import { ExternalLink, UserStar } from "lucide-react"
 import EditEntryModal from "./EditEntryModal";
+import { Star } from "./Icons";
+import { useState } from "react";
+import { toggleCurated } from "./actions";
 
 // Type alias of TypeScript because Tag is seperate table, 
 // So if we want to use tag[] array we also create new type that include both Entry and Tag together.
@@ -10,6 +13,14 @@ import EditEntryModal from "./EditEntryModal";
 export type EntryWithTags = Entry & { tags: Tag[] }
 
 export default function EntryCard({ entry }: { entry: EntryWithTags }) {
+
+  const [curated, setCurated] = useState(entry.isCurated)
+
+  const handleCurate = async () => {
+    setCurated(!curated)
+    await toggleCurated(entry.id, !curated)
+  }
+
   return (
     <div
       key={entry.id}
@@ -72,9 +83,14 @@ export default function EntryCard({ entry }: { entry: EntryWithTags }) {
           </div>
         )}
       </div>
-      <div className="flex mt-4 justify-end text-gray-300 hover:text-white">
-        <EditEntryModal entry={entry}></EditEntryModal>
+      <div className="flex items-center justify-end gap-2 mt-4 text-gray-300">
+        <div className="hover:text-white">
+          <EditEntryModal entry={entry} />
+        </div>
+        <button onClick={handleCurate} className="text-gray-300 hover:text-yellow-400">
+          <Star filled={curated} />
+        </button>
       </div>
-    </div>
+    </div >
   )
 }

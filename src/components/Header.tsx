@@ -14,7 +14,9 @@ export default function Header() {
 
       {/* Logo Section */}
       <div className="font-mono flex-1 text-xl font-black tracking-widest text-white">
-        TERMINAL_SHELF
+        <Link href="/terminal">
+          TERMINAL_SHELF
+        </Link>
       </div>
 
       {/* Navigation - Uses your new --font-headline alias */}

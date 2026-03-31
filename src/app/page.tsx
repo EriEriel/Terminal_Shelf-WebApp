@@ -1,12 +1,9 @@
 import { prisma } from "@/lib/prisma";
-import EntryCard from "@/components/EntryCard";
 import { auth } from "@/auth";
 import { redirect } from "next/navigation";
 import BentoGrid from "@/components/BentoGrid";
 import MetricGrid from "@/components/MetricGrid";
 import StatusHeader from "@/components/StatusHeader";
-import { SearchBar } from "@/components/SearchBar";
-import AddEntryModal from "@/components/AddEntryModal";
 
 async function getUserEntries(userId: string, search: string = "") {
   return await prisma.entry.findMany({
