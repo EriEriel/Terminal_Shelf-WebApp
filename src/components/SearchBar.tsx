@@ -2,7 +2,7 @@
 
 export function SearchBar() {
   return (
-    <form method="get" action="/">
+    <form method="get" action="/archive">
       <input
         name="search"
         placeholder="Search Entry"

@@ -1,8 +1,14 @@
 "use client";
 
 import LoginModal from "./LoginModal";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+
 
 export default function Header() {
+
+  const pathname = usePathname();
+
   return (
     <header className="fixed top-0 left-0 right-0 z-50 flex h-16 w-full items-center border-none bg-stone-950 px-8">
 
@@ -19,12 +25,17 @@ export default function Header() {
         >
           CURATED
         </a>
-        <a
-          href="#"
-          className="font-headline tracking-tighter uppercase font-bold text-sm text-stone-400 dark:text-stone-600 dark:hover:text-black hover:text-white transition-colors duration-150"
+
+        <Link
+          href="/archive"
+          className={`font-headline tracking-tighter uppercase font-bold text-sm transition-colors duration-150 ${pathname === "/archive"
+            ? "text-white underline"
+            : "text-stone-400 dark:text-stone-600 dark:hover:text-black hover:text-white"
+            }`}
         >
           ARCHIVE
-        </a>
+        </Link>
+
         <a
           href="#"
           className="font-headline tracking-tighter uppercase font-bold text-sm text-stone-400 dark:text-stone-600 dark:hover:text-black hover:text-white transition-colors duration-150"

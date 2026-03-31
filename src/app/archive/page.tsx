@@ -1,10 +1,8 @@
+
 import { prisma } from "@/lib/prisma";
 import EntryCard from "@/components/EntryCard";
 import { auth } from "@/auth";
 import { redirect } from "next/navigation";
-import BentoGrid from "@/components/BentoGrid";
-import MetricGrid from "@/components/MetricGrid";
-import StatusHeader from "@/components/StatusHeader";
 import { SearchBar } from "@/components/SearchBar";
 import AddEntryModal from "@/components/AddEntryModal";
 
@@ -27,23 +25,7 @@ export default async function Home({ searchParams }: { searchParams: Promise<{ s
   const session = await auth();
 
   if (!session?.user?.id) {
-
-    return (
-      <main className="ml-64 mr-64 pt-24 px-12 pb-12 min-h-screen bg-[#202123] text-white">
-
-        <StatusHeader />
-
-
-        {/* Big Data Visualizations */}
-        <MetricGrid />
-
-        {/* Content Grid (Asymmetric Bento) */}
-        <BentoGrid />
-
-        {/* Footer Terminal Style */}
-        {/* <TerminalFooter version="V.S.I_001" year="2026" /> */}
-      </main>
-    );
+    redirect("/")
   }
 
   // deconstructing and default value,
@@ -51,6 +33,29 @@ export default async function Home({ searchParams }: { searchParams: Promise<{ s
   const { search = "" } = await searchParams
   const entries = await getUserEntries(session.user.id, search);
 
-  redirect('/archive');
+  return (
 
+    <main className="ml-64 mr-64 py-10 px-4 mt-10 bg-[#202123] min-h-screen">
+
+      <div className="flex gap-4 items-center justify-end">
+        {session && <SearchBar />}
+        {session && <AddEntryModal />}
+      </div>
+
+      <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3 mt-5 ml-5">
+        {entries.length === 0 ? (
+          <div className="col-span-full py-20 text-center border-2 border-dashed rounded-lg">
+            <p className="text-muted-foreground">Your shelf is empty.</p>
+          </div>
+        ) : (
+          entries.map((entry) => (
+            <div key={entry.id} >
+              <EntryCard key={entry.id} entry={entry}></EntryCard>
+            </div>
+          ))
+        )}
+      </div>
+    </main>
+
+  );
 }
