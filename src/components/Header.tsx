@@ -21,12 +21,15 @@ export default function Header() {
 
       {/* Navigation - Uses your new --font-headline alias */}
       <nav className="hidden flext-1 items-center gap-8 md:flex">
-        <a
-          href="#"
-          className="font-headline tracking-tighter uppercase font-bold text-sm text-stone-400 dark:text-stone-600 dark:hover:text-black hover:text-white transition-colors duration-150"
+        <Link
+          href="/curated"
+          className={`font-headline tracking-tighter uppercase font-bold text-sm transition-colors duration-150 ${pathname === "/curated"
+            ? "text-white underline"
+            : "text-stone-400 dark:text-stone-600 dark:hover:text-black hover:text-white"
+            }`}
         >
           CURATED
-        </a>
+        </Link>
 
         <Link
           href="/archive"

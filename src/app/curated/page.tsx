@@ -1,14 +1,15 @@
 import { prisma } from "@/lib/prisma";
-import EntryCard from "@/components/EntryCard";
 import { auth } from "@/auth";
 import { redirect } from "next/navigation";
+import EntryCard from "@/components/EntryCard";
 import { SearchBar } from "@/components/SearchBar";
 import AddEntryModal from "@/components/AddEntryModal";
 
-async function getUserEntries(userId: string, search: string = "") {
+async function getUserCuratedEntries(userId: string, search: string = "") {
   return await prisma.entry.findMany({
     where: {
       userId: userId,
+      isCurated: true,
       OR: [
         { title: { contains: search, mode: "insensitive" } },
         { author: { contains: search, mode: "insensitive" } },
@@ -30,7 +31,7 @@ export default async function Home({ searchParams }: { searchParams: Promise<{ s
   // deconstructing and default value,
   // if search is empty return empty string("") instead of undefined
   const { search = "" } = await searchParams
-  const entries = await getUserEntries(session.user.id, search);
+  const entries = await getUserCuratedEntries(session.user.id, search);
 
   return (
 
