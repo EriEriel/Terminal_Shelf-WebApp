@@ -41,12 +41,15 @@ export default function Header() {
           ARCHIVE
         </Link>
 
-        <a
-          href="#"
-          className="font-headline tracking-tighter uppercase font-bold text-sm text-stone-400 dark:text-stone-600 dark:hover:text-black hover:text-white transition-colors duration-150"
+        <Link
+          href="/docs"
+          className={`font-headline tracking-tighter uppercase font-bold text-sm transition-colors duration-150 ${pathname === "/docs"
+            ? "text-white underline"
+            : "text-stone-400 dark:text-stone-600 dark:hover:text-black hover:text-white"
+            }`}
         >
           DOCS
-        </a>
+        </Link>
       </nav>
 
       <div className="flex-1 flex items-center justify-end gap-6">
