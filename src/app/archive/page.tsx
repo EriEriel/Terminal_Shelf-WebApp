@@ -33,28 +33,28 @@ export default async function Home({ searchParams }: { searchParams: Promise<{ s
   const entries = await getUserEntries(session.user.id, search);
 
   return (
+    <main className="bg-[#1a1b1d]">
+      <div className="ml-64 mr-64 py-10 px-4 mt-10 bg-[#202123] min-h-screen">
 
-    <main className="ml-64 mr-64 py-10 px-4 mt-10 bg-[#202123] min-h-screen">
+        <div className="flex gap-4 items-center justify-end">
+          {session && <SearchBar />}
+          {session && <AddEntryModal />}
+        </div>
 
-      <div className="flex gap-4 items-center justify-end">
-        {session && <SearchBar />}
-        {session && <AddEntryModal />}
-      </div>
-
-      <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3 mt-5">
-        {entries.length === 0 ? (
-          <div className="col-span-full py-20 text-center border-2 border-dashed rounded-lg">
-            <p className="text-muted-foreground">Your shelf is empty.</p>
-          </div>
-        ) : (
-          entries.map((entry) => (
-            <div key={entry.id} >
-              <EntryCard key={entry.id} entry={entry}></EntryCard>
+        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3 mt-5">
+          {entries.length === 0 ? (
+            <div className="col-span-full py-20 text-center border-2 border-dashed rounded-lg">
+              <p className="text-muted-foreground">Your shelf is empty.</p>
             </div>
-          ))
-        )}
+          ) : (
+            entries.map((entry) => (
+              <div key={entry.id} >
+                <EntryCard key={entry.id} entry={entry}></EntryCard>
+              </div>
+            ))
+          )}
+        </div>
       </div>
     </main>
-
   );
 }

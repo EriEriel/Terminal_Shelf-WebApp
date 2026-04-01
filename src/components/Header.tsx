@@ -24,8 +24,8 @@ export default function Header() {
         <Link
           href="/curated"
           className={`font-headline tracking-tighter uppercase font-bold text-sm transition-colors duration-150 ${pathname === "/curated"
-            ? "text-white underline"
-            : "text-stone-400 dark:text-stone-600 dark:hover:text-black hover:text-white"
+            ? "text-green-400 border-b border-green-400"
+            : "text-[#9ca3af] hover:text-white transition-colors"
             }`}
         >
           CURATED
@@ -34,8 +34,8 @@ export default function Header() {
         <Link
           href="/archive"
           className={`font-headline tracking-tighter uppercase font-bold text-sm transition-colors duration-150 ${pathname === "/archive"
-            ? "text-white underline"
-            : "text-stone-400 dark:text-stone-600 dark:hover:text-black hover:text-white"
+            ? "text-green-400 border-b border-green-400"
+            : "text-[#9ca3af] hover:text-white transition-colors"
             }`}
         >
           ARCHIVE
@@ -44,8 +44,8 @@ export default function Header() {
         <Link
           href="/docs"
           className={`font-headline tracking-tighter uppercase font-bold text-sm transition-colors duration-150 ${pathname === "/docs"
-            ? "text-white underline"
-            : "text-stone-400 dark:text-stone-600 dark:hover:text-black hover:text-white"
+            ? "text-green-400 border-b border-green-400"
+            : "text-[#9ca3af] hover:text-white transition-colors"
             }`}
         >
           DOCS
