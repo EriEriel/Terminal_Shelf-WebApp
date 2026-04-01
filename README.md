@@ -34,17 +34,25 @@ The project is also a deliberate learning exercise — I made every architectura
 ## Features
 
 **Currently working**
-- Search by title, author, tags 
-- Add, edit, and delete entries (novels, fanfic, bookmarks)
-- Tag system for flexible organisation
-- Cover image support via URL
-- Notes per entry
-- Responsive layout
+- Error and empty page handling 
+- Image upload system
+- Group search with tags when click on tags
+- Get default title by enter the URL instead of typing it manually
 
 **In progress**
+- Responsive layout
+- Mocking terminal style CLI to manage archive
+- Curated tab show more stuff than just favourite (The Entry that still mark as plan to read for long period for example)
+
+**Done**
 - Authentication (email/password + OAuth)
 - Per-user data isolation
 - Filtering by category, status etc.
+- Notes per entry
+- Cover image support via URL
+- Search by title, author, tags 
+- Add, edit, and delete entries (novels, fanfic, bookmarks)
+- Tag system for flexible organisation
 
 ---
 
