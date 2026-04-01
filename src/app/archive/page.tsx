@@ -41,7 +41,7 @@ export default async function Home({ searchParams }: { searchParams: Promise<{ s
         {session && <AddEntryModal />}
       </div>
 
-      <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3 mt-5 ml-5">
+      <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3 mt-5">
         {entries.length === 0 ? (
           <div className="col-span-full py-20 text-center border-2 border-dashed rounded-lg">
             <p className="text-muted-foreground">Your shelf is empty.</p>
