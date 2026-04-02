@@ -1,7 +1,11 @@
+"use client";
+
+import { useState } from "react";
 import { AlertDelete } from "./DeleteAlertModal";
 import { updateEntry } from "./actions";
 import { Pencil } from "lucide-react";
 import { type EntryWithTags } from "@/components/EntryCard"
+import CoverUpload from "./CoverUpload";
 import {
   Dialog,
   DialogClose,
@@ -20,6 +24,10 @@ import {
 } from "@/components/ui/select"
 
 export default function EditEntryModal({ entry }: { entry: EntryWithTags }) {
+
+  const [coverUrl, setCoverUrl] = useState("");
+  const [publicId, setPublicId] = useState("");
+
   return (
     <Dialog>
       <DialogTrigger asChild>
@@ -40,10 +48,23 @@ export default function EditEntryModal({ entry }: { entry: EntryWithTags }) {
         </DialogHeader>
 
         <form action={updateEntry} className="space-y-3 pt-2">
+
+          <input type="hidden" name="coverUrl" value={coverUrl ?? ""} />
+          <input type="hidden" name="publicId" value={publicId ?? ""} />
+
           <input type="hidden" name="id" value={entry.id} />
 
+          <div className="flex items-center gap-3">
+            <label className="text-[11px] text-[#4b5563] w-24 shrink-0 tracking-wide">cover</label>
+            <CoverUpload
+              onUpload={(url, pid) => {
+                setCoverUrl(url);
+                setPublicId(pid);
+              }}
+            />
+          </div>
+
           {[
-            { id: "coverUrl", label: "cover_url", placeholder: "optional", value: entry.coverUrl ?? "" },
             { id: "title", label: "title", placeholder: "", value: entry.title ?? "" },
             { id: "author", label: "author", placeholder: "optional", value: entry.author ?? "" },
             { id: "url", label: "url", placeholder: "optional", value: entry.url ?? "" },

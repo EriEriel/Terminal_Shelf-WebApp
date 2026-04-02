@@ -1,6 +1,5 @@
 "use client";
 
-import { useRef } from "react";
 import { useState } from "react";
 import CoverUpload from "./CoverUpload";
 import { addEntry } from "./actions";
@@ -25,9 +24,6 @@ export default function AddEntryModal() {
 
   const [coverUrl, setCoverUrl] = useState("");
   const [publicId, setPublicId] = useState("");
-
-  // const coverUrlRef = useRef<HTMLInputElement>(null)
-  // const publicIdRef = useRef<HTMLInputElement>(null)
 
   return (
     <div>
