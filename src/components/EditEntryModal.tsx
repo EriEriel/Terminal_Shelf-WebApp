@@ -1,5 +1,4 @@
 import { AlertDelete } from "./DeleteAlertModal";
-import { Button } from "@/components/ui/button"
 import { updateEntry } from "./actions";
 import { Pencil } from "lucide-react";
 import { type EntryWithTags } from "@/components/EntryCard"

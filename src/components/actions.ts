@@ -43,10 +43,10 @@ export async function addEntry(formData: FormData) {
     }
   });
 
-  if (url && publicId) {
+  if (coverUrl && publicId) {
     await prisma.image.create({
       data: {
-        url,
+        url: coverUrl,
         publicId,
         entryId: entry.id,
         userId,

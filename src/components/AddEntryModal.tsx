@@ -1,5 +1,8 @@
 "use client";
-import { Button } from "@/components/ui/button"
+
+import { useRef } from "react";
+import { useState } from "react";
+import CoverUpload from "./CoverUpload";
 import { addEntry } from "./actions";
 import {
   Dialog,
@@ -19,6 +22,13 @@ import {
 } from "@/components/ui/select"
 
 export default function AddEntryModal() {
+
+  const [coverUrl, setCoverUrl] = useState("");
+  const [publicId, setPublicId] = useState("");
+
+  // const coverUrlRef = useRef<HTMLInputElement>(null)
+  // const publicIdRef = useRef<HTMLInputElement>(null)
+
   return (
     <div>
       <Dialog>
@@ -40,9 +50,21 @@ export default function AddEntryModal() {
 
           <form action={addEntry} className="space-y-3 pt-2">
 
+            <input type="hidden" name="coverUrl" value={coverUrl ?? ""} />
+            <input type="hidden" name="publicId" value={publicId ?? ""} />
+
+            <div className="flex items-center gap-3">
+              <label className="text-[11px] text-[#4b5563] w-24 shrink-0 tracking-wide">cover</label>
+              <CoverUpload
+                onUpload={(url, pid) => {
+                  setCoverUrl(url);
+                  setPublicId(pid);
+                }}
+              />
+            </div>
+
             {/* Reusable field style — apply to all inputs */}
             {[
-              { id: "coverUrl", label: "cover_url", placeholder: "optional" },
               { id: "title", label: "title", placeholder: "" },
               { id: "url", label: "url", placeholder: "optional" },
               { id: "author", label: "author", placeholder: "optional" },
@@ -124,6 +146,7 @@ export default function AddEntryModal() {
                   cancel
                 </button>
               </DialogClose>
+
               <button
                 type="submit"
                 className="font-mono text-xs text-[#1a1b1d] bg-green-400 border border-green-400 px-4 py-1.5 hover:bg-green-300 transition-colors tracking-wide"
