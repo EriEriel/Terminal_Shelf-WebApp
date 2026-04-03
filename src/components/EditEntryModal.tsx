@@ -25,8 +25,9 @@ import {
 
 export default function EditEntryModal({ entry }: { entry: EntryWithTags }) {
 
-  const [coverUrl, setCoverUrl] = useState("");
-  const [publicId, setPublicId] = useState("");
+  const [coverUrl, setCoverUrl] = useState(entry.coverUrl ?? "");
+  const [publicId, setPublicId] = useState(entry.image?.publicId ?? "");
+
 
   return (
     <Dialog>
@@ -49,14 +50,18 @@ export default function EditEntryModal({ entry }: { entry: EntryWithTags }) {
 
         <form action={updateEntry} className="space-y-3 pt-2">
 
-          <input type="hidden" name="coverUrl" value={coverUrl ?? ""} />
-          <input type="hidden" name="publicId" value={publicId ?? ""} />
+          <input type="hidden" name="coverUrl" value={coverUrl} />
+          <input type="hidden" name="publicId" value={publicId} />
+
+          <input type="hidden" name="existingCoverUrl" value={entry.coverUrl ?? ""} />
+          <input type="hidden" name="existingPublicId" value={entry.image?.publicId ?? ""} />
 
           <input type="hidden" name="id" value={entry.id} />
 
           <div className="flex items-center gap-3">
             <label className="text-[11px] text-[#4b5563] w-24 shrink-0 tracking-wide">cover</label>
             <CoverUpload
+              currentUrl={entry.coverUrl ?? undefined}
               onUpload={(url, pid) => {
                 setCoverUrl(url);
                 setPublicId(pid);
@@ -108,7 +113,6 @@ export default function EditEntryModal({ entry }: { entry: EntryWithTags }) {
               <SelectContent className="bg-[#1a1b1d] border border-[#2f3133] rounded-none font-mono">
                 <SelectItem value="FANFIC" className="text-xs text-slate-300 focus:bg-[#2f3133] focus:text-green-400">Fanfic</SelectItem>
                 <SelectItem value="NOVEL" className="text-xs text-slate-300 focus:bg-[#2f3133] focus:text-green-400">Novel</SelectItem>
-                <SelectItem value="MANGA" className="text-xs text-slate-300 focus:bg-[#2f3133] focus:text-green-400">Manga</SelectItem>
                 <SelectItem value="BOOKMARK" className="text-xs text-slate-300 focus:bg-[#2f3133] focus:text-green-400">Bookmark</SelectItem>
                 <SelectItem value="OTHER" className="text-xs text-slate-300 focus:bg-[#2f3133] focus:text-green-400">Other</SelectItem>
               </SelectContent>

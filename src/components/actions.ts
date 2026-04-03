@@ -1,5 +1,6 @@
 "use server";
 
+import cloudinary from "@/lib/cloudinary";
 import { prisma } from "@/lib/prisma";
 import { redirect } from "next/navigation";
 import { Category, Status } from "@/generated/prisma/enums";
@@ -65,7 +66,9 @@ export async function updateEntry(formData: FormData) {
   const id = formData.get("id") as string;
   const title = formData.get("title") as string;
   const coverUrl = formData.get("coverUrl") as string;
+  const existingCoverUrl = formData.get("existingCoverUrl") as string;
   const publicId = formData.get("publicId") as string;
+  const existingPublicId = formData.get("existingPublicId") as string;
   const author = formData.get("author") as string;
   const category = formData.get("category") as Category;
   const status = formData.get("status") as Status;
@@ -73,6 +76,14 @@ export async function updateEntry(formData: FormData) {
   const notes = formData.get("notes") as string;
   const tagsInput = formData.get("tags") as string;
   const tagNames = tagsInput ? tagsInput.split(",").map(t => t.trim()).filter(Boolean) : [];
+
+  if (coverUrl !== existingCoverUrl && existingPublicId) {
+    await cloudinary.uploader.destroy(existingPublicId);
+
+    if (!coverUrl) {
+      await prisma.image.delete({ where: { entryId: id } });
+    }
+  }
 
   const entry = await prisma.entry.update({
     where: { id },
@@ -109,6 +120,15 @@ export async function updateEntry(formData: FormData) {
 // DELETE method 
 export async function deleteEntry(formData: FormData) {
   const id = formData.get("id") as string;
+
+  const image = await prisma.image.findUnique({
+    where: { entryId: id }
+  });
+
+  // delete from Cloudinary if image exists
+  if (image?.publicId) {
+    await cloudinary.uploader.destroy(image.publicId);
+  }
 
   await prisma.entry.delete({
     where: { id },

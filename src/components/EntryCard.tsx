@@ -1,13 +1,13 @@
 "use client";
 
-import { Entry, Tag } from "@/generated/prisma/client";
+import { Entry, Tag, Image } from "@/generated/prisma/client";
 import { ExternalLink } from "lucide-react";
 import EditEntryModal from "./EditEntryModal";
 import { Star } from "./Icons";
 import { useState } from "react";
 import { toggleCurated } from "./actions";
 
-export type EntryWithTags = Entry & { tags: Tag[] };
+export type EntryWithTags = Entry & { tags: Tag[], image: Image | null };
 
 const statusStyles: Record<string, string> = {
   COMPLETED: "bg-green-950 text-green-300 border-l border-b border-[#2f3133]",

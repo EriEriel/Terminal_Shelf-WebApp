@@ -17,7 +17,7 @@ async function getUserCuratedEntries(userId: string, search: string = "") {
       ]
     },
     orderBy: { createdAt: "desc" },
-    include: { tags: true },
+    include: { tags: true, image: true },
   });
 }
 

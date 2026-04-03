@@ -16,7 +16,7 @@ async function getUserEntries(userId: string, search: string = "") {
       ]
     },
     orderBy: { updatedAt: "desc" },
-    include: { tags: true },
+    include: { tags: true, image: true },
   });
 }
 

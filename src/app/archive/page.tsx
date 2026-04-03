@@ -7,6 +7,7 @@ import AddEntryModal from "@/components/AddEntryModal";
 
 async function getUserEntries(userId: string, search: string = "") {
   return await prisma.entry.findMany({
+
     where: {
       userId: userId,
       OR: [
@@ -16,7 +17,7 @@ async function getUserEntries(userId: string, search: string = "") {
       ]
     },
     orderBy: { createdAt: "desc" },
-    include: { tags: true },
+    include: { tags: true, image: true },
   });
 }
 

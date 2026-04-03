@@ -75,7 +75,7 @@ model Image {
   userId    String
   user      User     @relation(fields: [userId], references: [id])
   entryId   String?  @unique
-  entry     Entry?   @relation(fields: [entryId], references: [id])
+  entry     Entry?   @relation(fields: [entryId], references: [id], onDelete: Cascade)
   createdAt DateTime @default(now())
 }
 
