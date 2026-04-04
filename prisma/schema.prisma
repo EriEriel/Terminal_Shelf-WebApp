@@ -23,6 +23,7 @@ model User {
   createdAt     DateTime  @default(now())
   updatedAt     DateTime  @updatedAt
   images        Image[]
+  shelves       Shelf[]
 }
 
 model Account {
@@ -43,6 +44,19 @@ model Account {
   @@unique([provider, providerAccountId])
 }
 
+model Shelf {
+  id        String   @id @default(cuid())
+  name      String
+  order     Int      @default(0)
+  isDefault Boolean  @default(false)
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  entries   Entry[]
+  createdAt DateTime @default(now())
+
+  @@index([userId])
+}
+
 model Entry {
   id        String   @id @default(cuid())
   title     String
@@ -60,6 +74,8 @@ model Entry {
   updatedAt DateTime @updatedAt
   isCurated Boolean  @default(false)
   image     Image?
+  shelf     Shelf?   @relation(fields: [shelfId], references: [id])
+  shelfId   String?
 }
 
 model Tag {
