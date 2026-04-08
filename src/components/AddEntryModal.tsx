@@ -1,5 +1,6 @@
 "use client";
 
+import { usePathname, useSearchParams } from "next/navigation";
 import { useState } from "react";
 import CoverUpload from "./CoverUpload";
 import { addEntry } from "./actions";
@@ -25,6 +26,14 @@ export default function AddEntryModal() {
   const [coverUrl, setCoverUrl] = useState("");
   const [publicId, setPublicId] = useState("");
 
+  const searchParams = useSearchParams();
+  const activeShelfId = searchParams.get("shelf") ?? "";
+
+  const pathname = usePathname();
+  const currentPath = searchParams.get("shelf")
+    ? `${pathname}?shelf=${searchParams.get("shelf")}`
+    : pathname;
+
   return (
     <div>
       <Dialog modal={false}>
@@ -48,6 +57,8 @@ export default function AddEntryModal() {
 
             <input type="hidden" name="coverUrl" value={coverUrl ?? ""} />
             <input type="hidden" name="publicId" value={publicId ?? ""} />
+            <input type="hidden" name="currentPath" value={currentPath} />
+            <input type="hidden" name="shelfId" value={activeShelfId} />
 
             <div className="flex items-center gap-3">
               <label className="text-[11px] text-[#4b5563] w-24 shrink-0 tracking-wide">cover</label>

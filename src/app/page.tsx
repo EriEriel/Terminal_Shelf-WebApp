@@ -50,6 +50,4 @@ export default async function Home({ searchParams }: { searchParams: Promise<{ s
   const { search = "" } = await searchParams
   const entries = await getUserEntries(session.user.id, search);
 
-  redirect('/archive');
-
 }

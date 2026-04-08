@@ -58,6 +58,7 @@ export async function addEntry(formData: FormData) {
   const session = await auth()
   if (!session?.user?.id) redirect("/login")
 
+  const currentPath = formData.get("currentPath") as string || "/";
   const userId = session?.user?.id as string
   const title = formData.get("title") as string;
   const coverUrl = formData.get("coverUrl") as string;
@@ -111,7 +112,7 @@ export async function addEntry(formData: FormData) {
     throw err;
   }
 
-  redirect("/");
+  redirect(currentPath);
 }
 
 // PATCH method
@@ -133,6 +134,7 @@ export async function updateEntry(formData: FormData) {
   const tagsInput = formData.get("tags") as string;
   const shelfId = formData.get("shelfId") as string;
   const tagNames = tagsInput ? tagsInput.split(",").map(t => t.trim()).filter(Boolean) : [];
+  const currentPath = formData.get("currentPath") as string || "/";
 
   try {
     if (coverUrl !== existingCoverUrl && existingPublicId) {
@@ -176,12 +178,14 @@ export async function updateEntry(formData: FormData) {
     console.error("[EditEntry]", err);
     throw err;
   }
-  redirect("/");
+  redirect(currentPath);
 }
 
 // DELETE method 
 export async function deleteEntry(formData: FormData) {
   const id = formData.get("id") as string;
+  const currentPath = formData.get("currentPath") as string || "/";
+
 
   try {
     const image = await prisma.image.findUnique({
@@ -202,7 +206,7 @@ export async function deleteEntry(formData: FormData) {
     throw err;
   }
 
-  redirect("/");
+  redirect(currentPath);
 }
 
 // Curated Method

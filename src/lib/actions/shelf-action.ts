@@ -28,23 +28,18 @@ export async function getShelves() {
 
 // ─── Create ─────────────────────────────────────────────────────────────────
 
-export async function createShelf(formData: FormData) {
+export async function createShelf(prevState: unknown, formData: FormData) {
   const session = await auth();
+  if (!session?.user?.id) redirect("/login");
+  const userId = session.user.id;
+  const name = (formData.get("name") as string).trim();
+  if (!name) return { error: "Shelf name cannot be empty." };
 
   try {
-    if (!session?.user?.id) redirect("/login");
-
-    const userId = session.user.id;
-    const name = (formData.get("name") as string).trim();
-
-    if (!name) return { error: "Shelf name cannot be empty." };
-
-    // New shelf goes to the end of the list
     const maxOrder = await prisma.shelf.aggregate({
       where: { userId },
       _max: { order: true },
     });
-
     await prisma.shelf.create({
       data: {
         name,
@@ -52,13 +47,12 @@ export async function createShelf(formData: FormData) {
         userId,
       },
     });
+    revalidatePath("/");
+    return { error: null };
   } catch (err) {
-    if (isRedirectError(err)) throw err;
     console.error("[createShelf]", err);
-    throw err;
+    return { error: "Failed to create shelf." };
   }
-
-  revalidatePath("/");
 }
 
 // ─── Rename ─────────────────────────────────────────────────────────────────

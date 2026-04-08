@@ -5,12 +5,14 @@ import { redirect } from "next/navigation";
 import { SearchBar } from "@/components/SearchBar";
 import AddEntryModal from "@/components/AddEntryModal";
 import { AddShelfDropdown } from "@/components/AddShelvesDropdown";
+import { getShelves } from "@/lib/actions/shelf-action";
 
-async function getUserEntries(userId: string, search: string = "") {
+async function getUserEntries(userId: string, search: string = "", shelfId?: string) {
   return await prisma.entry.findMany({
 
     where: {
       userId: userId,
+      ...(shelfId && { shelfId }),
       OR: [
         { title: { contains: search, mode: "insensitive" } },
         { author: { contains: search, mode: "insensitive" } },
@@ -22,28 +24,36 @@ async function getUserEntries(userId: string, search: string = "") {
   });
 }
 
-export default async function Home({ searchParams }: { searchParams: Promise<{ search?: string }> }) {
+export default async function Home({ searchParams }: { searchParams: Promise<{ search?: string; shelf?: string }> }) {
   const session = await auth();
 
   if (!session?.user?.id) {
     redirect("/")
   }
 
-  // deconstructing and default value,
-  // if search is empty return empty string("") instead of undefined
-  const { search = "" } = await searchParams
-  const entries = await getUserEntries(session.user.id, search);
+  const { search = "", shelf } = await searchParams;
+  const [entries, shelves] = await Promise.all([
+    getUserEntries(session.user.id, search, shelf),
+    getShelves(),
+  ]);
+
+  const activeShelf = shelves.find((s) => s.id === shelf);
+  const shelfName = activeShelf?.name ?? "All Entries";
 
   return (
     <div className="bg-[#1a1b1d]">
       <div className="ml-64 mr-64 py-10 px-4 mt-10 bg-[#202123] min-h-screen">
 
-        <div className="flex gap-4 items-center justify-end">
-          {session && <SearchBar />}
-          {session && <AddEntryModal />}
-          {session && <AddShelfDropdown />}
+        <div className="flex gap-4 items-center justify-between">
+          <h1 className="font-mono font-bold text-sm text-green-400 px-4 h-9 transition-colors tracking-widest uppercase">
+            Shelf: {shelfName.toLowerCase()}
+          </h1>
+          <div className="flex gap-4 items-center">
+            {session && <SearchBar />}
+            {session && <AddEntryModal />}
+            {session && <AddShelfDropdown shelves={shelves} />}
+          </div>
         </div>
-
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3 mt-5">
           {entries.length === 0 ? (
             <div className="col-span-full flex flex-col items-center justify-center py-32 text-center font-mono">
