@@ -1,9 +1,11 @@
 "use client";
 
 import { Shelf } from "@/types/types"
+import { deleteShelf } from "@/lib/actions/shelf-action";
 import { useRouter } from "next/navigation";
 import { ShelvesEditModal } from "./ShelvesEditModal";
 import { useState } from "react";
+import { HandleRenameModal } from "@/components/RenameShelfModal";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -17,14 +19,23 @@ import {
 interface AddShelfDropdown {
   shelves?: Shelf[];  // ← ? makes it optional
 }
+
 export function AddShelfDropdown({ shelves = [] }: AddShelfDropdown) {
   const router = useRouter();
   const [open, setOpen] = useState(false);
   const [isEditOpen, setIsEditOpen] = useState(false);
+  const [renameShelf, setRenameShelf] = useState<Shelf | null>(null); // ← add this
 
   function selectShelf(id: string) {
     setOpen(false);
     router.push(`/archive/?shelf=${id}`);
+  }
+
+  async function handleDelete(id: string) {
+    const formData = new FormData();
+    formData.set("id", id);
+    setOpen(false); // close dropdown first
+    await deleteShelf(null, formData);
   }
 
   return (
@@ -62,6 +73,26 @@ export function AddShelfDropdown({ shelves = [] }: AddShelfDropdown) {
               >
                 <span>{shelf.name}</span>
                 <span className="text-[#4b5563]">({shelf._count.entries})</span>
+
+                <button
+                  onClick={(e) => {
+                    e.stopPropagation();   // don't trigger onSelect
+                    setOpen(false);        // close dropdown first
+                    setRenameShelf(shelf); // set which shelf to rename
+                  }}
+                >
+                  rename
+                </button>
+
+                <button
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    handleDelete(shelf.id);
+                  }}
+                >
+                  delete
+                </button>
+
               </DropdownMenuItem>
             ))}
           </DropdownMenuGroup>
@@ -77,7 +108,22 @@ export function AddShelfDropdown({ shelves = [] }: AddShelfDropdown) {
         </DropdownMenuContent>
       </DropdownMenu>
 
-      <ShelvesEditModal shelves={shelves} open={isEditOpen} onOpenChange={setIsEditOpen} />
+      {isEditOpen && (
+        <ShelvesEditModal
+          key="add-shelf-modal"
+          shelves={shelves}
+          open={isEditOpen}
+          onOpenChange={setIsEditOpen}
+        />
+      )}
+      {renameShelf && (
+        <HandleRenameModal
+          key={`rename-shelf-${renameShelf.id}`}
+          shelf={renameShelf}
+          open={!!renameShelf}
+          onOpenChange={(open) => { if (!open) setRenameShelf(null); }}
+        />
+      )}
     </>
   );
 }

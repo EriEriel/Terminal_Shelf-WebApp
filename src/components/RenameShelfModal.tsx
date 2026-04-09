@@ -1,8 +1,7 @@
 "use client";
 
-import { createShelf } from "@/lib/actions/shelf-action";
-import { Shelf } from "@/types/types"
 import { useEffect, useActionState } from "react";
+import { Shelf } from "@/types/types"
 import {
   Dialog,
   DialogContent,
@@ -10,16 +9,16 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog"
+import { renameShelf } from "@/lib/actions/shelf-action";
 
-interface ShelvesEditModalProps {
-  shelves: Shelf[];
+interface HandleRenameModalProps {
+  shelf: Shelf | null;
   open?: boolean;
   onOpenChange?: (open: boolean) => void;
 }
 
-export function ShelvesEditModal({ shelves, open, onOpenChange }: ShelvesEditModalProps) {
-
-  const [state, formAction, isPending] = useActionState(createShelf, null);
+export function HandleRenameModal({ shelf, open, onOpenChange }: HandleRenameModalProps) {
+  const [state, formAction, isPending] = useActionState(renameShelf, null);
 
   useEffect(() => {
     if (state?.error === null && open) {
@@ -28,24 +27,27 @@ export function ShelvesEditModal({ shelves, open, onOpenChange }: ShelvesEditMod
     }
   }, [state, open, onOpenChange]);
 
+  if (!shelf) return null;
+
   return (
     <Dialog modal={false} open={open} onOpenChange={onOpenChange}>
-      {/* Header */}
       <DialogContent className="border border-[#2f3133] bg-[#202122] text-white font-mono rounded-none max-w-lg">
         <DialogHeader>
           <DialogTitle className="text-green-400 text-sm tracking-widest uppercase">
-            $ Add New Shelf
+            $ Rename Shelf
           </DialogTitle>
           <DialogDescription className="text-[#4b5563] text-xs">
-            {"// Create a new shelf to organize your entries"}
+            {"// Update the name of your shelf"}
           </DialogDescription>
         </DialogHeader>
 
         <form key={state?.error === null ? "reset" : "form"} action={formAction} className="space-y-3 pt-2">
+          <input type="hidden" name="id" value={shelf.id} />
           <div className="flex gap-2">
             <input
               name="name"
               placeholder="Shelf name"
+              defaultValue={shelf.name}
               className="flex-1 bg-[#16171a] border border-[#2f3133] text-slate-200 text-xs px-2 py-1.5 focus:outline-none focus:border-green-400 placeholder:text-[#374151] font-mono transition-colors"
             />
             <button
@@ -53,7 +55,7 @@ export function ShelvesEditModal({ shelves, open, onOpenChange }: ShelvesEditMod
               disabled={isPending}
               className="font-mono text-xs text-[#1a1b1d] bg-green-400 border border-green-400 px-4 py-1.5 hover:bg-green-300 transition-colors tracking-wide"
             >
-              {isPending ? "Creating..." : "Create"}
+              {isPending ? "Renaming..." : "Rename"}
             </button>
           </div>
           {state?.error && <p className="text-red-400 text-xs">{state.error}</p>}

@@ -4,7 +4,7 @@ import { auth } from "@/auth";
 import { redirect } from "next/navigation";
 import { SearchBar } from "@/components/SearchBar";
 import AddEntryModal from "@/components/AddEntryModal";
-import { AddShelfDropdown } from "@/components/AddShelvesDropdown";
+import { AddShelfDropdown } from "@/components/AddShelfDropdown";
 import { getShelves } from "@/lib/actions/shelf-action";
 
 async function getUserEntries(userId: string, search: string = "", shelfId?: string) {

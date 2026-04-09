@@ -1,4 +1,4 @@
-import { AddShelfDropdown } from "@/components/AddShelvesDropdown";
+import { AddShelfDropdown } from "@/components/AddShelfDropdown";
 
 
 export default function NotesPage() {

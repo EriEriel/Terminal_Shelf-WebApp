@@ -47,7 +47,7 @@ export async function createShelf(prevState: unknown, formData: FormData) {
         userId,
       },
     });
-    revalidatePath("/");
+    revalidatePath("/", "layout");
     return { error: null };
   } catch (err) {
     console.error("[createShelf]", err);
@@ -57,7 +57,7 @@ export async function createShelf(prevState: unknown, formData: FormData) {
 
 // ─── Rename ─────────────────────────────────────────────────────────────────
 
-export async function renameShelf(formData: FormData) {
+export async function renameShelf(prevState: any, formData: FormData) {
   const session = await auth();
 
   try {
@@ -75,16 +75,18 @@ export async function renameShelf(formData: FormData) {
     if (!shelf) return { error: "Shelf not found." };
 
     await prisma.shelf.update({ where: { id }, data: { name } });
+    revalidatePath("/", "layout");
+    return { error: null };
   } catch (err) {
     if (isRedirectError(err)) throw err;
     console.error("[renameShelf]", err);
-    throw err;
-  } revalidatePath("/");
+    return { error: "Failed to rename shelf." };
+  }
 }
 
 // ─── Delete ─────────────────────────────────────────────────────────────────
 
-export async function deleteShelf(formData: FormData) {
+export async function deleteShelf(prevState: any, formData: FormData) {
   const session = await auth();
 
   try {
@@ -112,11 +114,13 @@ export async function deleteShelf(formData: FormData) {
     });
 
     await prisma.shelf.delete({ where: { id } });
+    revalidatePath("/", "layout");
+    return { error: null };
   } catch (err) {
     if (isRedirectError(err)) throw err;
     console.error("[deleteShelf]", err);
-    throw err;
-  } revalidatePath("/");
+    return { error: "Failed to delete shelf." };
+  }
 }
 
 // ─── Reorder ─────────────────────────────────────────────────────────────────
@@ -156,7 +160,7 @@ export async function reorderShelves(orderedIds: string[]) {
     throw err;
   }
 
-  revalidatePath("/");
+  revalidatePath("/", "layout");
 }
 
 // ─── Move entry to shelf ─────────────────────────────────────────────────────
@@ -188,5 +192,5 @@ export async function moveEntryToShelf(entryId: string, shelfId: string) {
     throw err;
   }
 
-  revalidatePath("/");
+  revalidatePath("/", "layout");
 }
