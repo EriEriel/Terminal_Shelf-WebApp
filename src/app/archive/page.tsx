@@ -42,8 +42,7 @@ export default async function Home({ searchParams }: { searchParams: Promise<{ s
 
   return (
     <div className="bg-[#1a1b1d]">
-      <div className="ml-64 mr-64 py-10 px-4 mt-10 bg-[#202123] min-h-screen">
-
+      <div className="mx-4 sm:mx-8 md:mx-16 lg:mx-32 xl:mx-64 pt-24 px-12 pb-12 min-h-screen bg-[#202123] text-white">
         <div className="flex gap-4 items-center justify-between">
           <h1 className="font-mono font-bold text-sm text-green-400 px-4 h-9 transition-colors tracking-widest uppercase">
             Shelf: {shelfName.toLowerCase()}

@@ -7,7 +7,7 @@ export default function NotesPage() {
       <div className="flex gap-4 items-center justify-end">
         <AddShelfDropdown />
       </div>
-      <div className="ml-64 mr-64 pt-24 px-12 pb-12 min-h-screen bg-[#202123] text-white font-mono flex items-center justify-center">
+      <div className="w-full max-w-5xl mx-auto pt-24 px-4 sm:px-8 md:px-12 pb-12 min-h-screen bg-[#202123] text-white font-mono flex items-center justify-center">
 
         <div className="border border-[#2f3133] rounded-md bg-[#1a1b1d] w-full max-w-xl p-10">
 

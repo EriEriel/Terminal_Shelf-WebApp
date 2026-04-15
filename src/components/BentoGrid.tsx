@@ -4,11 +4,24 @@ import Link from "next/link";
 
 export const revalidate = 3600;
 
-const logs = [
-  { time: "14:02:11", msg: "Sync_Request: Accepted" },
-  { time: "13:58:04", msg: "Buffer_Overflow: Resolved" },
-  { time: "13:42:55", msg: "Encryption_Handshake: OK" },
-];
+const recentActivity = await prisma.entry.findMany({
+  take: 5,
+  orderBy: { createdAt: "desc" },
+  select: {
+    createdAt: true,
+    category: true,
+    status: true,
+  }
+})
+
+const logs = recentActivity.map((entry) => ({
+  time: entry.createdAt.toLocaleTimeString("en-GB", {
+    hour: "2-digit",
+    minute: "2-digit",
+    second: "2-digit",
+  }),
+  msg: `ENTRY_ADDED: ${entry.category}`,
+}))
 
 export default async function BentoGrid() {
   // Count total then pick a random offset — Prisma has no native random()

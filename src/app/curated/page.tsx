@@ -35,12 +35,10 @@ export default async function Home({ searchParams }: { searchParams: Promise<{ s
 
   return (
     <main className="bg-[#1a1b1d]">
-      <div className="ml-64 mr-64 py-10 px-4 mt-10 bg-[#202123] min-h-screen">
-
-        <div className="flex gap-4 items-center justify-end">
-          {session && <SearchBar />}
-          {session && <AddEntryModal />}
-        </div>
+      <div className="mx-4 sm:mx-8 md:mx-16 lg:mx-32 xl:mx-64 pt-24 px-12 pb-12 min-h-screen bg-[#202123] text-white"> <div className="flex gap-4 items-center justify-end">
+        {session && <SearchBar />}
+        {session && <AddEntryModal />}
+      </div>
 
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3 mt-5">
           {entries.length === 0 ? (
