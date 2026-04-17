@@ -1,7 +1,5 @@
 'use client';
 
-import React from 'react';
-
 interface StatusHeaderProps {
   status?: string;
   title?: string;
@@ -22,7 +20,7 @@ export default function StatusHeader({
       </div>
 
       {/* Main Title with Terminal Cursor */}
-      <h1 className="text-6xl font-bold tracking-tighter text-white flex items-center">
+      <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold tracking-tighter text-white flex items-center">
         {title}
         <span className="ml-1 w-[2.2] h-[1.2em] bg-white animate-pulse opacity-5 inline-block" aria-hidden="true" />
       </h1>

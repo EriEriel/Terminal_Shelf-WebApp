@@ -67,9 +67,9 @@ export default async function BentoGrid() {
                 <div className="font-mono text-[10px] text-gray-500 uppercase tracking-widest">
                   {entry.type} &nbsp;·&nbsp; {entry.status.replace("_", " ")}
                 </div>
-                <h3 className="text-4xl font-bold tracking-tight">{entry.title}</h3>
+                <h3 className="text-xl sm:text-4xl font-bold tracking-tight">{entry.title}</h3>
                 {entry.notes && (
-                  <p className="text-gray-400 max-w-md text-sm leading-relaxed line-clamp-2">
+                  <p className="text-gray-400 max-w-md text-xs sm:text-sm leading-relaxed line-clamp-2">
                     {entry.notes}
                   </p>
                 )}

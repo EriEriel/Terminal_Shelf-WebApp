@@ -2,18 +2,26 @@ import { prisma } from "@/lib/prisma";
 
 export const revalidate = 3600;
 
-const Metric = ({ label, value, unit, detail, trend }: any) => (
-  <div className="flex flex-col gap-2">
+interface MetricProps {
+  label: string;
+  value: string;
+  unit?: string;
+  detail: string;
+  trend: boolean;
+}
+
+const Metric = ({ label, value, unit, detail, trend }: MetricProps) => (
+  <div className="flex flex-col items-center text-center text-white font-mono">
     <span className="text-[10px] font-mono uppercase tracking-[0.3em] text-gray-500">
       {label}
     </span>
-    <div className="text-8xl font-black tracking-tighter text-white font-mono">
+    <div className="text-6xl sm:text-7xl md:text-8xl font-black tracking-tighter text-white font-mono">
       {value}
       {unit && <span className="text-2xl font-normal ml-2">{unit}</span>}
     </div>
-    <div className="flex items-center gap-2 mt-2">
-      <span className={`w-2 h-2 ${trend ? "bg-white" : "bg-gray-700"}`}></span>
-      <span className="text-[10px] font-mono text-gray-500 uppercase">
+    <div className="flex items-center gap-2 mt-2 min-w-0">
+      <span className={`shrink-0 w-2 h-2 ${trend ? "bg-white" : "bg-gray-700"}`}></span>
+      <span className="text-[10px] font-mono tracking-normal text-gray-500 uppercase leading-tight break-words min-w-0">
         {detail}
       </span>
     </div>
@@ -47,7 +55,7 @@ export default async function MetricGrid() {
     : "NO DATA";
 
   return (
-    <section className="grid grid-cols-1 md:grid-cols-3 gap-12 mb-24">
+    <section className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-12 mb-12 md:mb-24">
       <Metric
         label="Total Entries"
         value={String(totalEntries).padStart(4, "0")}
