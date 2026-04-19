@@ -1,9 +1,9 @@
 import { prisma } from "@/lib/prisma";
 import { auth } from "@/auth";
-import { redirect } from "next/navigation";
 import EntryCard from "@/components/EntryCard";
 import { SearchBar } from "@/components/SearchBar";
 import AddEntryModal from "@/components/AddEntryModal";
+import NonSessionScreen from "@/components/NonSessionScreen";
 
 async function getUserCuratedEntries(userId: string, search: string = "") {
   return await prisma.entry.findMany({
@@ -25,7 +25,7 @@ export default async function Home({ searchParams }: { searchParams: Promise<{ s
   const session = await auth();
 
   if (!session?.user?.id) {
-    redirect("/")
+    return <NonSessionScreen page="curated" />
   }
 
   // deconstructing and default value,

@@ -1,7 +1,7 @@
 import { prisma } from "@/lib/prisma";
 import EntryCard from "@/components/EntryCard";
 import { auth } from "@/auth";
-import { redirect } from "next/navigation";
+import NonSessionScreen from "@/components/NonSessionScreen";
 import { SearchBar } from "@/components/SearchBar";
 import AddEntryModal from "@/components/AddEntryModal";
 import { AddShelfDropdown } from "@/components/AddShelfDropdown";
@@ -28,7 +28,7 @@ export default async function Home({ searchParams }: { searchParams: Promise<{ s
   const session = await auth();
 
   if (!session?.user?.id) {
-    redirect("/")
+    return <NonSessionScreen page="archive" />
   }
 
   const { search = "", shelf } = await searchParams;

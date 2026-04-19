@@ -1,0 +1,12 @@
+import TerminalTypewriter from "./TerminalTypewriter"
+
+export default function NonSessionScreen({ page }: { page: "curated" | "archive" }) {
+  return (
+    <div className="flex flex-col items-center justify-center min-h-[60vh] px-4">
+      <TerminalTypewriter page={page} />
+      <div className="flex gap-3 mt-8">
+        <button className="btn-signin">$ sign in</button>
+      </div>
+    </div>
+  )
+}

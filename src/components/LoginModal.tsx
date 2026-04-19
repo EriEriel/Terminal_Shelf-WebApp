@@ -12,7 +12,7 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog"
 
-export default function LoginModal() {
+export default function LoginModal({ trigger }: { trigger?: React.ReactNode }) {
   const { data: session, status } = useSession()
   const [open, setOpen] = useState(false)
 
@@ -57,19 +57,21 @@ export default function LoginModal() {
   return (
     <Dialog open={open} onOpenChange={setOpen} modal={false}>
       <DialogTrigger asChild>
-        {/* Login Icon (Clean SVG) */}
-        <button className="text-gray-50 hover:text-white transition-colors cursor-pointer focus:outline-none">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            strokeWidth="1.5"
-            stroke="currentColor"
-            className="size-7"
-          >
-            <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 9V5.25A2.25 2.25 0 0 1 10.5 3h6a2.25 2.25 0 0 1 2.25 2.25v13.5A2.25 2.25 0 0 1 16.5 21h-6a2.25 2.25 0 0 1-2.25-2.25V15M12 9l3 3m0 0-3 3m3-3H2.25" />
-          </svg>
-        </button>
+        {trigger || (
+          /* Login Icon (Clean SVG) */
+          <button className="text-gray-50 hover:text-white transition-colors cursor-pointer focus:outline-none">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              strokeWidth="1.5"
+              stroke="currentColor"
+              className="size-7"
+            >
+              <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 9V5.25A2.25 2.25 0 0 1 10.5 3h6a2.25 2.25 0 0 1 2.25 2.25v13.5A2.25 2.25 0 0 1 16.5 21h-6a2.25 2.25 0 0 1-2.25-2.25V15M12 9l3 3m0 0-3 3m3-3H2.25" />
+            </svg>
+          </button>
+        )}
       </DialogTrigger>
       <DialogContent className="bg-[#1a1b1d] border border-[#2f3133] rounded-none p-0 max-w-sm overflow-hidden">
         <DialogHeader>
