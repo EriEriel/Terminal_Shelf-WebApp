@@ -1,0 +1,10 @@
+services:
+  web:
+    build: .
+    network_mode: "host"
+    environment:
+      - PORT=3000
+      - HOSTNAME=0.0.0.0
+      - AUTH_TRUST_HOST=true
+    env_file:
+      - .env

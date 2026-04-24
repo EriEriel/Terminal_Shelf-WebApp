@@ -1,3 +1,5 @@
+export const dynamic = "force-dynamic";
+
 import BentoGrid from "@/components/BentoGrid";
 import MetricGrid from "@/components/MetricGrid";
 import StatusHeader from "@/components/StatusHeader";

@@ -1,3 +1,5 @@
+export const dynamic = "force-dynamic";
+
 import { prisma } from "@/lib/prisma";
 import EntryCard from "@/components/EntryCard";
 import { auth } from "@/auth";

@@ -8,7 +8,9 @@ import { Button } from "@/components/ui/button"
 
 function AlertDialog({
   ...props
-}: React.ComponentProps<typeof AlertDialogPrimitive.Root>) {
+}: React.ComponentProps<typeof AlertDialogPrimitive.Root> & {
+  modal?: boolean
+}) {
   return <AlertDialogPrimitive.Root data-slot="alert-dialog" {...props} />
 }
 
