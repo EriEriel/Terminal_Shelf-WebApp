@@ -106,6 +106,10 @@ This documentation serves as my personal technical knowledge base and ensures I 
    AUTH_URL="http://localhost:3000"
    AUTH_TRUST_HOST=true
 
+   # GitHub
+   GITHUB_CLIENT_ID="your_github_client_id"
+   GITHUB_CLIENT_SECRET="your_github_client_secret"
+   
    # Google OAuth
    AUTH_GOOGLE_ID="your_google_client_id"
    AUTH_GOOGLE_SECRET="your_google_client_secret"
@@ -163,4 +167,4 @@ Built by **[EriEriel]**
 
 ---
 
-*Self-taught developer • University CS student • Based in Thailand*
+*Self-taught developer • Based in Thailand*
