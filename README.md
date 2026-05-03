@@ -2,10 +2,20 @@
 
 A personal content tracker for readers and fanfic enthusiasts. Track novels, fanfiction, bookmarks, and more — with status tracking, ratings, tags, and notes — all in one place.
 
+![Terminal Shelf Demo](.assets/Terminal_shelf%20Demo.gif)
+
 Built as a full-stack portfolio project to demonstrate real-world Next.js development with a focus on clean architecture, type safety, and modern tooling.
 
 > **Live Demo**: [https://195.201.149.64.sslip.io/](https://195.201.149.64.sslip.io/)  
 > **Status**: **Live & Operational** — Hosted on Hetzner VPS with Supabase DB.
+
+---
+
+## UI Preview
+
+| Main Dashboard | Entry Details |
+|---|---|
+| ![Dashboard](.assets/screenshot-2026-05-03_16-08-11.png) | ![Entry Edit](.assets/screenshot-2026-05-03_16-08-46.png) |
 
 ---
 
