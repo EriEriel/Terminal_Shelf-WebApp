@@ -90,8 +90,8 @@ This documentation serves as my personal technical knowledge base and ensures I 
 
 1. **Clone the repo**
    ```bash
-   git clone https://github.com/yourusername/virtual-library.git
-   cd virtual-library
+   git clone https://github.com/EriEriel/Terminal_Shelf-WebApp
+   cd Terminal_Shelf-WebApp
    ```
 
 2. **Configure Environment Variables**
