@@ -1,6 +1,6 @@
 # Virtual Library
 
-A personal content tracker for readers and fanfic enthusiasts. Track novels, fanfiction, bookmarks, and more — with status tracking, ratings, tags, and notes — all in one place.
+A personal content tracker for readers and fanfic enthusiasts. Track novels, fanfiction, bookmarks, and more — with tags, and notes — all in one place.
 
 ![Terminal Shelf Demo](.assets/Terminal_shelf%20Demo.gif)
 
