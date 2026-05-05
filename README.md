@@ -19,6 +19,14 @@ Built as a full-stack portfolio project to demonstrate real-world Next.js develo
 
 ---
 
+## Database Schema
+
+The database is architected for clean relational integrity, supporting multi-user isolation, custom shelves, and rich entry metadata.
+
+![Database Schema](.assets/DBschema.png)
+
+---
+
 ## About
 
 I built Virtual Library to solve a problem I actually have: keeping track of the fiction and documents I read across dozens of different sites. Most reading trackers are either too generic or tied to a specific platform. This one is mine.
